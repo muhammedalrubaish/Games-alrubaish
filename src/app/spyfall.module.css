@@ -1,0 +1,481 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  font-size: 2rem;
+  background: rgba(0, 242, 254, 0.1);
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-glow);
+}
+
+.titleMain {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subTitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnSecondary {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hero Lobby */
+.lobbyCard {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 30px 24px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+
+.modeTabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 5px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  gap: 6px;
+}
+
+.modeTab {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.modeTabActive {
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);
+}
+
+/* Forms & Inputs */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+}
+
+.playersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.playerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btnRemovePlayer {
+  background: rgba(255, 51, 102, 0.2);
+  color: var(--accent-red);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.btnRemovePlayer:hover {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.selectField {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: #051026;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(0, 242, 254, 0.6);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Card Reveal Phase (Pass & Play) */
+.cardRevealWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 16px;
+}
+
+.playerPrompt {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.playerNameHuge {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent-cyan);
+  margin-bottom: 24px;
+}
+
+.secretCard {
+  width: 100%;
+  max-width: 420px;
+  min-height: 280px;
+  background: var(--bg-card);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  margin-bottom: 24px;
+}
+
+.secretCard:hover {
+  border-color: var(--accent-cyan);
+}
+
+.secretCardRevealed {
+  background: linear-gradient(145deg, rgba(22, 30, 46, 0.95), rgba(10, 13, 20, 0.95));
+  border: 2px solid var(--accent-cyan);
+  box-shadow: 0 0 35px rgba(0, 242, 254, 0.25);
+}
+
+.secretCardSpy {
+  border-color: var(--accent-red) !important;
+  box-shadow: 0 0 35px rgba(255, 51, 102, 0.35) !important;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.cardIconBig {
+  font-size: 4.5rem;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.cardRole {
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  font-weight: 700;
+  background: rgba(255, 190, 11, 0.12);
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 190, 11, 0.3);
+}
+
+.cardHint {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* In-Game Dashboard */
+.gameDash {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.timerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.timerDisplay {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-cyan);
+}
+
+.timerWarning {
+  color: var(--accent-red);
+  animation: pulseGlow 1s infinite ease-in-out;
+}
+
+.timerControls {
+  display: flex;
+  gap: 8px;
+}
+
+.btnDanger {
+  padding: 10px 16px;
+  background: rgba(255, 51, 102, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(255, 51, 102, 0.3);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.btnDanger:hover {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+/* Locations Grid */
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.locationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.locationCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.locationCard:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.locationCardCrossed {
+  opacity: 0.35;
+  filter: grayscale(0.9);
+  text-decoration: line-through;
+}
+
+.locationCardCrossed::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: var(--accent-red);
+  font-weight: 900;
+}
+
+.locationHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.locationIcon {
+  font-size: 1.5rem;
+}
+
+.locationName {
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.locationCategory {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Modal Vote / Spy Guess */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 16px;
+}
+
+.modalContent {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+/* Rules Accordion */
+.rulesBox {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-top: 24px;
+}
+
+.rulesTitle {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--accent-cyan);
+}
+
+.rulesList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .settingsGrid {
+    grid-template-columns: 1fr;
+  }
+  .locationsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .logoArea {
+    flex-direction: column;
+  }
+}
