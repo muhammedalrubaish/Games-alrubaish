@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import styles from "./spyfall.module.css";
-import { LOCATIONS_DATA, LocationItem } from "@/data/locations";
+import { LOCATIONS_DATA } from "@/data/locations";
 import { Player, GameState } from "@/types/game";
 import { SoundEffects } from "@/utils/audio";
 
@@ -87,7 +88,6 @@ export default function SpyfallGame() {
 
     // 3. Shuffle roles for citizens
     const availableRoles = [...randomLocation.roles];
-    // Shuffle roles
     for (let i = availableRoles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [availableRoles[i], availableRoles[j]] = [
@@ -175,7 +175,6 @@ export default function SpyfallGame() {
       }));
       SoundEffects.playClick();
     } else {
-      // All players saw their cards! Start main game!
       setGameState((prev) => ({
         ...prev,
         status: "playing",
@@ -211,7 +210,7 @@ export default function SpyfallGame() {
       status: "game-over",
       winner: isCorrect ? "spy" : "players",
       winReason: isCorrect
-        ? `نجح الجاسوس في تخمين الموقع الصحيح وهو: ${prev.selectedLocation?.name}!`
+        ? `نجح الجاسوس في تخمين الموقع الصحيح وهو: ${prev.selectedLocation?.name}! 🔥`
         : `أخطأ الجاسوس في التخمين! الموقع الحقيقي كان: ${prev.selectedLocation?.name}.`
     }));
 
@@ -236,8 +235,8 @@ export default function SpyfallGame() {
       status: "game-over",
       winner: isSpy ? "players" : "spy",
       winReason: isSpy
-        ? `صحيح! ${votedPlayer.name} كان هو الجاسوس المتسلل! تم كشفه بنجاح.`
-        : `للأسف! ${votedPlayer.name} كان بريئاً ولم يكن الجاسوس! فاز الجاسوس.`
+        ? `صحيح! ${votedPlayer.name} كان هو الجاسوس المتسلل! تم كشفه بنجاح 🎉.`
+        : `للأسف! ${votedPlayer.name} كان مواطناً بريئاً ولم يكن الجاسوس! فاز الجاسوس.`
     }));
 
     setShowVoteModal(false);
@@ -266,9 +265,9 @@ export default function SpyfallGame() {
         <div className={styles.logoArea}>
           <div className={styles.logoIcon}>🕵️‍♂️</div>
           <div>
-            <h1 className={styles.titleMain}>لعبة الجاسوس (Spyfall)</h1>
+            <h1 className={styles.titleMain}>لعبة الجاسوس | Spyfall</h1>
             <p className={styles.subTitle}>
-              النسخة العربية الأصلية بأماكن وأدوار حصرية
+              النسخة العربية الأصلية • أجواء غموض وتحقيق سايبربانك
             </p>
           </div>
         </div>
@@ -277,7 +276,7 @@ export default function SpyfallGame() {
             className={styles.btnSecondary}
             onClick={() => setShowRules(!showRules)}
           >
-            📖 كيف نلعب؟
+            <span>📜</span> كيف نلعب؟
           </button>
           {gameState.status !== "lobby" && (
             <button
@@ -288,7 +287,7 @@ export default function SpyfallGame() {
                 }
               }}
             >
-              🔄 جولة جديدة
+              <span>🔄</span> جولة جديدة
             </button>
           )}
         </div>
@@ -297,24 +296,25 @@ export default function SpyfallGame() {
       {/* Rules Box Toggle */}
       {showRules && (
         <div className={`${styles.rulesBox} fade-in-scale`}>
-          <h3 className={styles.rulesTitle}>🎯 قواعد اللعبة في دقيقة:</h3>
+          <h3 className={styles.rulesTitle}>🎯 قواعد ومسار اللعبة في دقيقة:</h3>
           <ul className={styles.rulesList}>
             <li>
-              📍 <strong>الجميع يعرف الموقع</strong> ولديهم وظائف فيه، ما عدا{" "}
-              <strong>الجاسوس</strong>!
+              📍 <strong>الجميع يعرف الموقع السري</strong> ولديهم وظائف فيه، ما
+              عدا <strong>الجاسوس</strong> الذي لا يعرف أين هو إطلاقاً!
             </li>
             <li>
-              ❓ يقوم لاعب بسؤال أي شخص سؤالاً ذكياً عن المكان (مثل: هل المكان
-              بارد عادة؟)، والمسؤول يجيب ثم يسأل غيره.
+              ❓ يقوم أحد اللاعبين بسؤال شخص آخر سؤالاً ذكياً عن المكان (مثل: هل
+              المكان بارد عادة؟ أو هل نرتدي زياً رسمياً هنا؟).
             </li>
             <li>
-              🤫 <strong>احذر:</strong> إذا سألت سؤالاً واضحاً جداً، سيعرف
-              الجاسوس المكان! وإذا سألت بغموض شديد، سيشك بك الآخرون!
+              🤫 <strong>قاعدة الأسئلة الذهبية:</strong> إذا سألت سؤالاً واضحاً
+              جداً سيكتشف الجاسوس الموقع فوراً، وإذا سألت بغموض شديد سيشك بك
+              الجميع ويعتقدون أنك الجاسوس!
             </li>
             <li>
-              🏆 <strong>يفوز اللاعبون</strong> إذا كشفوا الجاسوس وصوتوا عليه، أو{" "}
-              <strong>يفوز الجاسوس</strong> إذا حزر المكان أو انتهى الوقت دون
-              كشفه.
+              🏆 <strong>يفوز المحققون</strong> إذا اتفقوا وصوتوا على الجاسوس
+              الحقيقي، أو <strong>يفوز الجاسوس</strong> إذا حزر الموقع الصحيح أو
+              انتهى الوقت دون كشفه.
             </li>
           </ul>
         </div>
@@ -322,98 +322,130 @@ export default function SpyfallGame() {
 
       {/* ================= STAGE 1: LOBBY ================= */}
       {gameState.status === "lobby" && (
-        <div className={`${styles.lobbyCard} fade-in-scale`}>
-          <div className={styles.modeTabs}>
-            <button className={`${styles.modeTab} ${styles.modeTabActive}`}>
-              📱 جهاز واحد يمرر بين اللاعبين (Pass & Play)
+        <>
+          {/* Cinematic Hero Artwork Banner */}
+          <div className={`${styles.heroBanner} fade-in-scale`}>
+            <Image
+              src="/images/hero-cover.jpg"
+              alt="Spyfall Cover Art"
+              fill
+              className={styles.heroImage}
+              priority
+            />
+            <div className={styles.heroOverlay}>
+              <span className={styles.heroTag}>مهمة سرية للعملاء</span>
+              <h2 className={styles.heroTitle}>من هو الجاسوس المتسلل بيننا؟</h2>
+              <p className={styles.heroDesc}>
+                موقع سري واحد، عملاء بريئون بهويات حقيقية، وجاسوس واحد يحاول
+                التمويه والتسلل دون أن يُكشف. هل تستطيعون اكتشافه قبل فوات
+                الوقت؟
+              </p>
+            </div>
+          </div>
+
+          <div className={`${styles.lobbyCard} fade-in-scale`}>
+            <div className={styles.modeTabs}>
+              <button className={`${styles.modeTab} ${styles.modeTabActive}`}>
+                📱 تمرير جهاز واحد بين اللاعبين (Pass & Play)
+              </button>
+            </div>
+
+            {/* Player Names Input */}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                👥 أسماء اللاعبين المشاركين (3 على الأقل):
+              </label>
+              <form
+                onSubmit={handleAddPlayer}
+                style={{ display: "flex", gap: "10px" }}
+              >
+                <input
+                  type="text"
+                  className={styles.inputField}
+                  placeholder="اكتب اسم اللاعب هنا واضغط إضافة..."
+                  value={newPlayerName}
+                  onChange={(e) => setNewPlayerName(e.target.value)}
+                  maxLength={20}
+                />
+                <button
+                  type="submit"
+                  className={styles.btnSecondary}
+                  style={{
+                    padding: "0 24px",
+                    background: "var(--accent-cyan)",
+                    color: "#05070c",
+                    fontWeight: 900
+                  }}
+                >
+                  + إضافة
+                </button>
+              </form>
+
+              <div className={styles.playersList}>
+                {playerNames.map((name, idx) => (
+                  <div key={idx} className={styles.playerBadge}>
+                    <span>👤 {name}</span>
+                    <button
+                      type="button"
+                      className={styles.btnRemovePlayer}
+                      onClick={() => handleRemovePlayer(idx)}
+                      title="حذف اللاعب"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Game Settings */}
+            <div className={styles.settingsGrid}>
+              <div>
+                <label className={styles.label}>⏱️ مدة الجولة:</label>
+                <select
+                  className={styles.selectField}
+                  value={timerDurationMinutes}
+                  onChange={(e) =>
+                    setTimerDurationMinutes(Number(e.target.value))
+                  }
+                >
+                  <option value={5}>5 دقائق (جولة سريعة وحماسية)</option>
+                  <option value={7}>7 دقائق (الوقت القياسي المثالي)</option>
+                  <option value={8}>8 دقائق (للمجموعات الكبيرة)</option>
+                  <option value={10}>10 دقائق (تحقيق عميق ونقاش طويل)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className={styles.label}>🕵️‍♂️ عدد الجواسيس:</label>
+                <select
+                  className={styles.selectField}
+                  value={spyCount}
+                  onChange={(e) => setSpyCount(Number(e.target.value))}
+                >
+                  <option value={1}>جاسوس واحد (موصى به)</option>
+                  {playerNames.length >= 5 && (
+                    <option value={2}>جاسوسان (تحدٍ أصعب وغامض)</option>
+                  )}
+                </select>
+              </div>
+            </div>
+
+            <button
+              className={styles.btnPrimary}
+              onClick={handleStartGame}
+              disabled={playerNames.length < 3}
+            >
+              <span>🚀</span> توزيع البطاقات السرية وبدء المهمة
             </button>
           </div>
-
-          {/* Player Names Input */}
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              👥 أسماء اللاعبين (الحد الأدنى 3):
-            </label>
-            <form onSubmit={handleAddPlayer} style={{ display: "flex", gap: "8px" }}>
-              <input
-                type="text"
-                className={styles.inputField}
-                placeholder="اكتب اسم اللاعب واضغط إضافة..."
-                value={newPlayerName}
-                onChange={(e) => setNewPlayerName(e.target.value)}
-                maxLength={20}
-              />
-              <button
-                type="submit"
-                className={styles.btnSecondary}
-                style={{ padding: "0 22px", background: "var(--accent-cyan)", color: "#000", fontWeight: 700 }}
-              >
-                + إضافة
-              </button>
-            </form>
-
-            <div className={styles.playersList}>
-              {playerNames.map((name, idx) => (
-                <div key={idx} className={styles.playerBadge}>
-                  <span>👤 {name}</span>
-                  <button
-                    type="button"
-                    className={styles.btnRemovePlayer}
-                    onClick={() => handleRemovePlayer(idx)}
-                    title="حذف اللاعب"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Game Settings */}
-          <div className={styles.settingsGrid}>
-            <div>
-              <label className={styles.label}>⏱️ مدة الجولة:</label>
-              <select
-                className={styles.selectField}
-                value={timerDurationMinutes}
-                onChange={(e) => setTimerDurationMinutes(Number(e.target.value))}
-              >
-                <option value={5}>5 دقائق (سريعة وحماسية)</option>
-                <option value={7}>7 دقائق (قياسية ومثالية)</option>
-                <option value={8}>8 دقائق (للمجموعات الكبيرة)</option>
-                <option value={10}>10 دقائق (طويلة وتحقيق عميق)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className={styles.label}>🕵️‍♂️ عدد الجواسيس:</label>
-              <select
-                className={styles.selectField}
-                value={spyCount}
-                onChange={(e) => setSpyCount(Number(e.target.value))}
-              >
-                <option value={1}>جاسوس واحد (موصى به)</option>
-                {playerNames.length >= 5 && (
-                  <option value={2}>جاسوسان (لعبة أصعب وأكثر غموضاً)</option>
-                )}
-              </select>
-            </div>
-          </div>
-
-          <button
-            className={styles.btnPrimary}
-            onClick={handleStartGame}
-            disabled={playerNames.length < 3}
-          >
-            🚀 توزيع الأدوار وبدء الجولة
-          </button>
-        </div>
+        </>
       )}
 
       {/* ================= STAGE 2: CARD REVEAL ================= */}
       {gameState.status === "card-reveal" && currentPlayer && (
         <div className={`${styles.cardRevealWrapper} fade-in-scale`}>
-          <p className={styles.playerPrompt}>مرّر الهاتف الآن إلى:</p>
+          <p className={styles.playerPrompt}>مرّر الهاتف الآن بالسر إلى:</p>
           <h2 className={styles.playerNameHuge}>👤 {currentPlayer.name}</h2>
 
           {!gameState.revealedCardShowing ? (
@@ -421,7 +453,10 @@ export default function SpyfallGame() {
               className={styles.secretCard}
               onClick={() => {
                 SoundEffects.playReveal();
-                setGameState((prev) => ({ ...prev, revealedCardShowing: true }));
+                setGameState((prev) => ({
+                  ...prev,
+                  revealedCardShowing: true
+                }));
               }}
             >
               <div className={styles.cardIconBig}>🔒</div>
@@ -438,13 +473,32 @@ export default function SpyfallGame() {
             >
               {currentPlayer.isSpy ? (
                 <>
-                  <div className={styles.cardIconBig}>🕵️‍♂️</div>
-                  <h3 className={styles.cardTitle} style={{ color: "var(--accent-red)" }}>
-                    أنت الجاسوس!
+                  <Image
+                    src="/images/spy-card.jpg"
+                    alt="Spy Portrait"
+                    width={140}
+                    height={140}
+                    className={styles.cardSpyImage}
+                  />
+                  <h3
+                    className={styles.cardTitle}
+                    style={{ color: "var(--accent-red)" }}
+                  >
+                    أنت الجاسوس! 🕵️‍♂️
                   </h3>
+                  <div
+                    className={styles.cardRole}
+                    style={{
+                      borderColor: "rgba(255, 42, 95, 0.4)",
+                      background: "rgba(255, 42, 95, 0.15)",
+                      color: "var(--accent-red)"
+                    }}
+                  >
+                    المهمة: التسلل والتخفي
+                  </div>
                   <p className={styles.cardHint}>
-                    أنت لا تعرف الموقع! استمع جيداً لأسئلة الآخرين وحاول معرفة
-                    المكان دون أن يكتشفوك.
+                    أنت لا تعرف الموقع السري! استمع جيداً لأسئلة وإجابات
+                    الآخرين، حاول استنتاج المكان دون أن يكتشفك أحد.
                   </p>
                 </>
               ) : (
@@ -469,12 +523,12 @@ export default function SpyfallGame() {
           {gameState.revealedCardShowing && (
             <button
               className={styles.btnPrimary}
-              style={{ maxWidth: "340px", marginTop: "12px" }}
+              style={{ maxWidth: "380px", marginTop: "16px" }}
               onClick={handleNextPlayerCard}
             >
               {gameState.revealedPlayerIndex + 1 < gameState.players.length
-                ? "🔒 إخفاء وتسليم للاعب التالي"
-                : "🔥 الجميع رأى بطاقته، ابدأ التحقيق!"}
+                ? "🔒 إخفاء البطاقة وتسليم للاعب التالي"
+                : "🔥 الجميع رأى هويته، ابدأ التحقيق الآن!"}
             </button>
           )}
         </div>
@@ -486,12 +540,20 @@ export default function SpyfallGame() {
           {/* Top Bar: Timer & Actions */}
           <div className={styles.timerBar}>
             <div>
-              <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
-                الوقت المتبقي:
+              <div
+                style={{
+                  fontSize: "0.85rem",
+                  color: "var(--text-secondary)",
+                  fontWeight: 700
+                }}
+              >
+                الوقت المتبقي للجولة:
               </div>
               <div
                 className={`${styles.timerDisplay} ${
-                  gameState.timeRemainingSeconds <= 60 ? styles.timerWarning : ""
+                  gameState.timeRemainingSeconds <= 60
+                    ? styles.timerWarning
+                    : ""
                 }`}
               >
                 {formatTime(gameState.timeRemainingSeconds)}
@@ -519,7 +581,11 @@ export default function SpyfallGame() {
               </button>
               <button
                 className={styles.btnSecondary}
-                style={{ background: "rgba(0, 242, 254, 0.15)", color: "var(--accent-cyan)" }}
+                style={{
+                  background: "rgba(0, 242, 254, 0.15)",
+                  color: "var(--accent-cyan)",
+                  borderColor: "var(--border-glow-cyan)"
+                }}
                 onClick={() => setShowVoteModal(true)}
               >
                 🗳️ تصويت على الجاسوس
@@ -532,22 +598,22 @@ export default function SpyfallGame() {
             <div
               style={{
                 background: "rgba(0, 242, 254, 0.08)",
-                border: "1px solid var(--border-glow)",
-                padding: "12px 18px",
+                border: "1px solid var(--border-glow-cyan)",
+                padding: "14px 20px",
                 borderRadius: "var(--radius-md)",
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                fontSize: "0.95rem"
+                gap: "12px",
+                fontSize: "1rem"
               }}
             >
-              <span>🎲</span>
+              <span style={{ fontSize: "1.4rem" }}>🎲</span>
               <div>
                 يبدأ بطرح السؤال الأول اللاعب:{" "}
                 <strong style={{ color: "var(--accent-cyan)" }}>
                   {firstQuestioner}
                 </strong>{" "}
-                (اسأل أي لاعب من اختيارك).
+                (اختر أي لاعب واسأله سؤالاً ذكياً).
               </div>
             </div>
           )}
@@ -556,8 +622,10 @@ export default function SpyfallGame() {
           <div>
             <div className={styles.sectionTitle}>
               <span>🗺️ قائمة الأماكن المحتملة ({LOCATIONS_DATA.length}):</span>
-              <span style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-                (اضغط على أي مكان لشطبه أو استبعاده)
+              <span
+                style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}
+              >
+                (اضغط على أي موقع لشطبه أو استبعاده من الشكوك)
               </span>
             </div>
 
@@ -594,12 +662,19 @@ export default function SpyfallGame() {
         <div className={styles.modalOverlay}>
           <div className={`${styles.modalContent} fade-in-scale`}>
             <h3 className={styles.modalTitle}>🕵️‍♂️ تخمين الجاسوس للموقع:</h3>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "16px", fontSize: "0.95rem" }}>
-              إذا كان تخمينك صحيحاً، ستفوز فوراً حتى لو كشفك الآخرون!
+            <p
+              style={{
+                color: "var(--text-secondary)",
+                marginBottom: "18px",
+                fontSize: "0.95rem"
+              }}
+            >
+              إذا كان تخمينك صحيحاً، ستفوز بالمباراة فوراً حتى لو كشفك
+              المحققون!
             </p>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>اختر الموقع الذي تعتقده:</label>
+              <label className={styles.label}>اختر الموقع السري الذي تعتقده:</label>
               <select
                 className={styles.selectField}
                 value={selectedGuessLocation}
@@ -638,12 +713,18 @@ export default function SpyfallGame() {
         <div className={styles.modalOverlay}>
           <div className={`${styles.modalContent} fade-in-scale`}>
             <h3 className={styles.modalTitle}>🗳️ التصويت لكشف الجاسوس:</h3>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "16px", fontSize: "0.95rem" }}>
-              اتفقوا على المشتبه به وصوتوا لإيقاف الجولة وكشف الحقيقة:
+            <p
+              style={{
+                color: "var(--text-secondary)",
+                marginBottom: "18px",
+                fontSize: "0.95rem"
+              }}
+            >
+              اتفقوا على الشخص المشتبه به وصوتوا لإيقاف الجولة وكشف هويته:
             </p>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>من هو الجاسوس بنظركم؟</label>
+              <label className={styles.label}>من تعتقدون أنه الجاسوس؟</label>
               <select
                 className={styles.selectField}
                 value={votedPlayerId}
@@ -679,32 +760,39 @@ export default function SpyfallGame() {
 
       {/* ================= STAGE 4: GAME OVER ================= */}
       {gameState.status === "game-over" && (
-        <div className={`${styles.lobbyCard} fade-in-scale`} style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "4.5rem", marginBottom: "12px" }}>
+        <div
+          className={`${styles.lobbyCard} fade-in-scale`}
+          style={{ textAlign: "center" }}
+        >
+          <div style={{ fontSize: "5rem", marginBottom: "14px" }}>
             {gameState.winner === "players" ? "🎉" : "🕵️‍♂️"}
           </div>
 
           <h2
             style={{
-              fontSize: "2.2rem",
+              fontSize: "2.4rem",
               fontWeight: 900,
               color:
                 gameState.winner === "players"
                   ? "var(--accent-green)"
                   : "var(--accent-red)",
-              marginBottom: "12px"
+              marginBottom: "14px",
+              textShadow:
+                gameState.winner === "players"
+                  ? "0 0 25px rgba(0, 240, 118, 0.4)"
+                  : "0 0 25px rgba(255, 42, 95, 0.5)"
             }}
           >
             {gameState.winner === "players"
-              ? "فوز اللاعبين المحققين!"
+              ? "فوز المحققين الأذكياء!"
               : "فوز الجاسوس المتسلل!"}
           </h2>
 
           <p
             style={{
-              fontSize: "1.15rem",
+              fontSize: "1.2rem",
               color: "var(--text-secondary)",
-              marginBottom: "24px",
+              marginBottom: "28px",
               lineHeight: 1.6
             }}
           >
@@ -714,44 +802,62 @@ export default function SpyfallGame() {
           {/* Reveal Location & Identities */}
           <div
             style={{
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid var(--border-color)",
+              background: "rgba(255, 255, 255, 0.03)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
               borderRadius: "var(--radius-lg)",
-              padding: "20px",
-              marginBottom: "24px",
+              padding: "24px",
+              marginBottom: "28px",
               textAlign: "right"
             }}
           >
-            <h4 style={{ color: "var(--accent-cyan)", marginBottom: "12px" }}>
+            <h4 style={{ color: "var(--accent-cyan)", marginBottom: "12px", fontSize: "1.1rem" }}>
               📍 الموقع السري كان:
             </h4>
-            <div style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: "16px" }}>
-              {gameState.selectedLocation?.icon} {gameState.selectedLocation?.name}
+            <div
+              style={{
+                fontSize: "1.5rem",
+                fontWeight: 900,
+                marginBottom: "20px"
+              }}
+            >
+              {gameState.selectedLocation?.icon}{" "}
+              {gameState.selectedLocation?.name}
             </div>
 
-            <h4 style={{ color: "var(--accent-cyan)", marginBottom: "12px" }}>
+            <h4 style={{ color: "var(--accent-cyan)", marginBottom: "12px", fontSize: "1.1rem" }}>
               🎭 هويات اللاعبين في هذه الجولة:
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
               {gameState.players.map((p) => (
                 <div
                   key={p.id}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    padding: "8px 12px",
+                    padding: "10px 14px",
                     background: p.isSpy
-                      ? "rgba(255, 51, 102, 0.15)"
+                      ? "rgba(255, 42, 95, 0.15)"
                       : "rgba(255, 255, 255, 0.03)",
                     borderRadius: "var(--radius-sm)",
-                    border: p.isSpy ? "1px solid var(--accent-red)" : "1px solid transparent"
+                    border: p.isSpy
+                      ? "1px solid var(--accent-red)"
+                      : "1px solid transparent"
                   }}
                 >
-                  <span style={{ fontWeight: 700 }}>
+                  <span style={{ fontWeight: 800 }}>
                     {p.name} {p.isSpy ? "🕵️‍♂️ (الجاسوس)" : ""}
                   </span>
-                  <span style={{ color: p.isSpy ? "var(--accent-red)" : "var(--accent-gold)" }}>
-                    {p.isSpy ? "مجهول" : p.role}
+                  <span
+                    style={{
+                      color: p.isSpy
+                        ? "var(--accent-red)"
+                        : "var(--accent-gold)",
+                      fontWeight: 700
+                    }}
+                  >
+                    {p.isSpy ? "متخفٍ بدون موقع" : p.role}
                   </span>
                 </div>
               ))}
@@ -761,7 +867,7 @@ export default function SpyfallGame() {
           <button
             className={styles.btnPrimary}
             onClick={handleStartGame}
-            style={{ maxWidth: "340px", margin: "0 auto" }}
+            style={{ maxWidth: "360px", margin: "0 auto" }}
           >
             🎲 جولة جديدة بنفس اللاعبين
           </button>

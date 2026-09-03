@@ -1,30 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
 
 :root {
-  --bg-primary: #0a0d14;
-  --bg-secondary: #121824;
-  --bg-card: rgba(22, 30, 46, 0.75);
-  --bg-card-hover: rgba(30, 41, 63, 0.85);
+  /* Ultra-Dark Cyber/Spy Palette */
+  --bg-primary: #05070c;
+  --bg-secondary: #0a0e17;
+  --bg-card: rgba(14, 20, 32, 0.72);
+  --bg-card-hover: rgba(22, 31, 48, 0.85);
+  --bg-input: rgba(10, 15, 26, 0.9);
+  
   --border-color: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(0, 242, 254, 0.35);
+  --border-glow-cyan: rgba(0, 242, 254, 0.4);
+  --border-glow-red: rgba(255, 51, 102, 0.5);
 
   --accent-cyan: #00f2fe;
-  --accent-blue: #4facfe;
-  --accent-red: #ff3366;
+  --accent-blue: #3a88fe;
+  --accent-red: #ff2a5f;
   --accent-gold: #ffbe0b;
-  --accent-green: #05d550;
+  --accent-green: #00f076;
+  --accent-purple: #9d4edd;
 
   --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-secondary: #a1b0cb;
+  --text-muted: #5e6f8d;
 
   --font-tajawal: 'Tajawal', sans-serif;
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-  --shadow-glow: 0 0 25px rgba(0, 242, 254, 0.2);
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  
+  --shadow-card: 0 15px 35px -10px rgba(0, 0, 0, 0.8);
+  --shadow-neon: 0 0 25px rgba(0, 242, 254, 0.25);
+  --shadow-spy: 0 0 35px rgba(255, 42, 95, 0.4);
 }
 
 * {
@@ -46,6 +53,7 @@ body {
   min-height: 100vh;
 }
 
+/* Background Cyber Grid & Vignette */
 body::before {
   content: '';
   position: fixed;
@@ -54,14 +62,17 @@ body::before {
   width: 100vw;
   height: 100vh;
   background: 
-    radial-gradient(circle at 20% 15%, rgba(0, 242, 254, 0.07) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(18, 24, 36, 0.9) 0%, var(--bg-primary) 100%);
+    radial-gradient(circle at 15% 10%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(255, 42, 95, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(10, 14, 23, 0.8) 0%, var(--bg-primary) 100%),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Scrollbar Style */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -82,44 +93,53 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 input, select {
   font-family: inherit;
   outline: none;
   border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-input);
   color: var(--text-primary);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 input:focus, select:focus {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
 }
 
-/* Animations */
-@keyframes pulseGlow {
+/* Micro Animations */
+@keyframes neonPulse {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
+    box-shadow: 0 0 20px rgba(255, 42, 95, 0.3), inset 0 0 10px rgba(255, 42, 95, 0.2);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 51, 102, 0.7);
+    box-shadow: 0 0 35px rgba(255, 42, 95, 0.7), inset 0 0 20px rgba(255, 42, 95, 0.4);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
   }
 }
 
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.96) translateY(8px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 .fade-in-scale {
-  animation: fadeInScale 0.3s ease-out forwards;
+  animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
