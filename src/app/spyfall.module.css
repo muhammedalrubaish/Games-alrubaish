@@ -505,34 +505,68 @@
 
 .locationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
 }
 
 .locationCard {
-  background: rgba(14, 20, 32, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
-  padding: 16px 14px;
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: all 0.22s ease;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  min-height: 140px;
 }
 
 .locationCard:hover {
-  background: rgba(22, 31, 48, 0.9);
+  background: rgba(22, 31, 48, 0.95);
   border-color: var(--accent-cyan);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.2);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 242, 254, 0.25);
+}
+
+.locationThumbWrapper {
+  position: relative;
+  width: 100%;
+  height: 95px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0d1527, #070a12);
+}
+
+.locationThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: brightness(0.85) contrast(1.1);
+}
+
+.locationCard:hover .locationThumbImg {
+  transform: scale(1.08);
+}
+
+.locationThumbOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14, 20, 32, 0.95) 0%, transparent 70%);
+}
+
+.locationContent {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  z-index: 2;
 }
 
 .locationCardCrossed {
-  opacity: 0.25;
+  opacity: 0.3;
   filter: grayscale(1);
   text-decoration: line-through;
   transform: scale(0.97);
@@ -544,10 +578,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2.8rem;
+  font-size: 3.5rem;
   color: var(--accent-red);
   font-weight: 900;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.95);
+  z-index: 10;
 }
 
 .locationHeader {
@@ -557,7 +592,7 @@
 }
 
 .locationIcon {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .locationName {

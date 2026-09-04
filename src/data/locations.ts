@@ -3,6 +3,7 @@ export interface LocationItem {
   name: string;
   category: string;
   icon: string;
+  image?: string;
   roles: string[];
   description?: string;
 }
@@ -13,6 +14,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "مستشفى عام",
     category: "خدمات وصحة",
     icon: "🏥",
+    image: "/images/locations/hospital.jpg",
     roles: [
       "طبيب جراح",
       "طبيب طوارئ",
@@ -30,6 +32,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "فندق خمس نجوم",
     category: "سياحة وضيافة",
     icon: "🏨",
+    image: "/images/locations/hotel.jpg",
     roles: [
       "موظف استقبال",
       "حامل حقائب",
@@ -81,6 +84,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "مطعم بخاري ومشاوي",
     category: "طعام ومطاعم",
     icon: "🍗",
+    image: "/images/locations/bukhari-restaurant.jpg",
     roles: [
       "معلم شواية",
       "طاهي رز بخاري",
@@ -98,6 +102,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "مخيم في البر (كشتة)",
     category: "رحلات وترفيه",
     icon: "⛺",
+    image: "/images/locations/desert-camp.jpg",
     roles: [
       "صانع القهوة والشاي (القهوجي)",
       "مسؤول إشعال النار والحطب",
@@ -115,6 +120,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "مركز تسوق (المول)",
     category: "تسوق وترفيه",
     icon: "🛍️",
+    image: "/images/locations/shopping-mall.jpg",
     roles: [
       "بائع ملابس ماركات",
       "متسوقة تبحث عن تخفيضات",
@@ -132,6 +138,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "قاعة أفراح (زواج)",
     category: "مناسبات واحتفالات",
     icon: "🎉",
+    image: "/images/locations/wedding-hall.jpg",
     roles: [
       "العريس",
       "والد العريس المبتسم",
@@ -166,6 +173,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "ملعب كرة قدم",
     category: "رياضة",
     icon: "⚽",
+    image: "/images/locations/football-stadium.jpg",
     roles: [
       "حكم المباراة",
       "نجم الفريق ومهاجم بارز",
@@ -200,6 +208,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "قطار الحرمين السريع",
     category: "نقل ومواصلات",
     icon: "🚄",
+    image: "/images/locations/harameen-train.jpg",
     roles: [
       "قائد القطار",
       "مفتش التذاكر",
@@ -302,6 +311,7 @@ export const LOCATIONS_DATA: LocationItem[] = [
     name: "سفينة قراصنة",
     category: "تاريخ ومغامرات",
     icon: "🏴‍☠️",
+    image: "/images/locations/pirate-ship.jpg",
     roles: [
       "قبطان القرصان ذو العين الواحدة",
       "مساعد القبطان بالببغاء",

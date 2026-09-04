@@ -511,10 +511,34 @@ export default function SpyfallGame() {
                 </>
               ) : (
                 <>
-                  <div className={styles.cardIconBig}>
-                    {gameState.selectedLocation?.icon}
-                  </div>
+                  {gameState.selectedLocation?.image ? (
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "170px",
+                        borderRadius: "var(--radius-md)",
+                        overflow: "hidden",
+                        marginBottom: "16px",
+                        border: "1px solid var(--border-glow-cyan)",
+                        boxShadow: "0 0 25px rgba(0, 242, 254, 0.3)"
+                      }}
+                    >
+                      <Image
+                        src={gameState.selectedLocation.image}
+                        alt={gameState.selectedLocation.name}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        priority
+                      />
+                    </div>
+                  ) : (
+                    <div className={styles.cardIconBig}>
+                      {gameState.selectedLocation?.icon}
+                    </div>
+                  )}
                   <h3 className={styles.cardTitle}>
+                    {gameState.selectedLocation?.icon}{" "}
                     {gameState.selectedLocation?.name}
                   </h3>
                   <div className={styles.cardRole}>
@@ -648,12 +672,39 @@ export default function SpyfallGame() {
                     }`}
                     onClick={() => handleToggleLocationCross(loc.id)}
                   >
-                    <div className={styles.locationHeader}>
-                      <span className={styles.locationIcon}>{loc.icon}</span>
-                      <div>
-                        <div className={styles.locationName}>{loc.name}</div>
-                        <div className={styles.locationCategory}>
-                          {loc.category}
+                    {loc.image ? (
+                      <div className={styles.locationThumbWrapper}>
+                        <Image
+                          src={loc.image}
+                          alt={loc.name}
+                          fill
+                          className={styles.locationThumbImg}
+                          sizes="(max-width: 600px) 50vw, 220px"
+                        />
+                        <div className={styles.locationThumbOverlay} />
+                      </div>
+                    ) : (
+                      <div
+                        className={styles.locationThumbWrapper}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "2.5rem"
+                        }}
+                      >
+                        {loc.icon}
+                      </div>
+                    )}
+
+                    <div className={styles.locationContent}>
+                      <div className={styles.locationHeader}>
+                        <span className={styles.locationIcon}>{loc.icon}</span>
+                        <div>
+                          <div className={styles.locationName}>{loc.name}</div>
+                          <div className={styles.locationCategory}>
+                            {loc.category}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -823,13 +874,39 @@ export default function SpyfallGame() {
             </h4>
             <div
               style={{
-                fontSize: "1.5rem",
-                fontWeight: 900,
-                marginBottom: "20px"
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                marginBottom: "20px",
+                background: "rgba(0, 0, 0, 0.4)",
+                padding: "12px 16px",
+                borderRadius: "var(--radius-md)",
+                border: "1px solid var(--border-glow-cyan)"
               }}
             >
-              {gameState.selectedLocation?.icon}{" "}
-              {gameState.selectedLocation?.name}
+              {gameState.selectedLocation?.image && (
+                <div
+                  style={{
+                    position: "relative",
+                    width: "90px",
+                    height: "60px",
+                    borderRadius: "var(--radius-sm)",
+                    overflow: "hidden",
+                    flexShrink: 0
+                  }}
+                >
+                  <Image
+                    src={gameState.selectedLocation.image}
+                    alt={gameState.selectedLocation.name}
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              )}
+              <div style={{ fontSize: "1.5rem", fontWeight: 900 }}>
+                {gameState.selectedLocation?.icon}{" "}
+                {gameState.selectedLocation?.name}
+              </div>
             </div>
 
             <h4 style={{ color: "var(--accent-cyan)", marginBottom: "12px", fontSize: "1.1rem" }}>
