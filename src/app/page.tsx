@@ -263,7 +263,15 @@ export default function SpyfallGame() {
       {/* App Header */}
       <header className={styles.header}>
         <div className={styles.logoArea}>
-          <div className={styles.logoIcon}>🕵️‍♂️</div>
+          <div className={styles.logoIconImageWrapper}>
+            <Image
+              src="/images/app-logo.png"
+              alt="شعار لعبة الجاسوس"
+              width={54}
+              height={54}
+              className={styles.logoImage}
+            />
+          </div>
           <div>
             <h1 className={styles.titleMain}>لعبة الجاسوس | Spyfall</h1>
             <p className={styles.subTitle}>

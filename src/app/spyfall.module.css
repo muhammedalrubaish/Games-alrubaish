@@ -27,6 +27,22 @@
   gap: 14px;
 }
 
+.logoIconImageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-glow-cyan);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.logoImage {
+  object-fit: cover;
+  display: block;
+}
+
 .logoIcon {
   font-size: 2.2rem;
   background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(58, 136, 254, 0.05));
